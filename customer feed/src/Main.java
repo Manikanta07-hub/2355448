@@ -12,39 +12,39 @@ public class Main {
             boolean exit = false;
             while (!exit) {
                 displayMenu();
-                
+
                 // Read user input
                 if (scanner.hasNextLine()) {
                     String input = scanner.nextLine().trim();
-                    
+
                     if (!input.isEmpty()) {
                         try {
                             int choice = Integer.parseInt(input);
 
                             switch (choice) {
                                 case 1:
-                                    feedbackManager.submitFeedback();
+                                    feedbackManager.submitFeedback(scanner);
                                     break;
                                 case 2:
-                                    feedbackManager.viewFeedback();
+                                    feedbackManager.viewFeedback(scanner);
                                     break;
                                 case 3:
-                                    feedbackManager.updateFeedback();
+                                    feedbackManager.updateFeedback(scanner);
                                     break;
                                 case 4:
-                                    feedbackManager.deleteFeedback();
+                                    feedbackManager.deleteFeedback(scanner);
                                     break;
                                 case 5:
-                                    surveyManager.createSurvey();
+                                    surveyManager.createSurvey(scanner);
                                     break;
                                 case 6:
-                                    surveyManager.viewSurvey();
+                                    surveyManager.viewSurvey(scanner);
                                     break;
                                 case 7:
-                                    surveyManager.updateSurvey();
+                                    surveyManager.updateSurvey(scanner);
                                     break;
                                 case 8:
-                                    surveyManager.deleteSurvey();
+                                    surveyManager.deleteSurvey(scanner);
                                     break;
                                 case 9:
                                     reportGenerator.generateFeedbackReport();
@@ -59,7 +59,7 @@ public class Main {
                                     reportGenerator.generateDetailedFeedbackReport();
                                     break;
                                 case 13:
-                                    customerManager.addCustomer();
+                                    customerManager.addCustomer(scanner);
                                     break;
                                 case 14:
                                     customerManager.viewCustomers();

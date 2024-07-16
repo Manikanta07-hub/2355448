@@ -1,16 +1,10 @@
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class FeedbackManager {
 
-    public void submitFeedback() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
-
+    public void submitFeedback(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Customer ID:");
             int customerId = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -18,6 +12,7 @@ public class FeedbackManager {
             String feedbackText = scanner.nextLine();
             System.out.println("Enter Rating:");
             int rating = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "INSERT INTO Feedback (customer_id, feedback_date, feedback_text, rating) VALUES (?, NOW(), ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -36,11 +31,11 @@ public class FeedbackManager {
         }
     }
 
-    public void viewFeedback() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void viewFeedback(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Feedback ID to view:");
             int feedbackId = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "SELECT * FROM Feedback WHERE feedback_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -62,9 +57,8 @@ public class FeedbackManager {
         }
     }
 
-    public void updateFeedback() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void updateFeedback(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Feedback ID to update:");
             int feedbackId = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -72,6 +66,7 @@ public class FeedbackManager {
             String feedbackText = scanner.nextLine();
             System.out.println("Enter new Rating:");
             int rating = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "UPDATE Feedback SET feedback_text = ?, rating = ? WHERE feedback_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -90,11 +85,11 @@ public class FeedbackManager {
         }
     }
 
-    public void deleteFeedback() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void deleteFeedback(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Feedback ID to delete:");
             int feedbackId = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "DELETE FROM Feedback WHERE feedback_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -110,5 +105,4 @@ public class FeedbackManager {
             e.printStackTrace();
         }
     }
-
 }

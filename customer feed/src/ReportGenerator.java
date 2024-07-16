@@ -1,11 +1,9 @@
-
 import java.sql.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class ReportGenerator {
 
-    // Method to generate feedback report
     public void generateFeedbackReport() {
         String sql = "SELECT * FROM Feedback";
 
@@ -28,7 +26,6 @@ public class ReportGenerator {
         }
     }
 
-    // Method to generate survey report
     public void generateSurveyReport() {
         String sql = "SELECT * FROM Survey";
 
@@ -50,7 +47,6 @@ public class ReportGenerator {
         }
     }
 
-    // Method to generate survey response report
     public void generateSurveyResponseReport() {
         String sql = "SELECT * FROM SurveyResponse";
 
@@ -73,7 +69,6 @@ public class ReportGenerator {
         }
     }
 
-    // Method to generate detailed customer feedback report
     public void generateDetailedFeedbackReport() {
         String sql = "SELECT f.feedback_id, f.customer_id, c.customer_name, f.feedback_date, f.feedback_text, f.rating " +
                      "FROM Feedback f " +

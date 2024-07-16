@@ -1,12 +1,13 @@
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class SurveyManager {
 
-    public void createSurvey() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void createSurvey(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Survey Name:");
             String surveyName = scanner.nextLine();
             System.out.println("Enter Survey Description:");
@@ -23,11 +24,12 @@ public class SurveyManager {
             e.printStackTrace();
         }
     }
-    public void viewSurvey() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+
+    public void viewSurvey(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Survey ID to view:");
             int surveyId = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "SELECT * FROM Survey WHERE survey_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -48,9 +50,8 @@ public class SurveyManager {
         }
     }
 
-    public void updateSurvey() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void updateSurvey(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Survey ID to update:");
             int surveyId = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -76,11 +77,11 @@ public class SurveyManager {
         }
     }
 
-    public void deleteSurvey() {
-        try (Connection conn = DBConnection.getConnection();
-             Scanner scanner = new Scanner(System.in)) {
+    public void deleteSurvey(Scanner scanner) {
+        try (Connection conn = DBConnection.getConnection()) {
             System.out.println("Enter Survey ID to delete:");
             int surveyId = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             String sql = "DELETE FROM Survey WHERE survey_id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -96,7 +97,4 @@ public class SurveyManager {
             e.printStackTrace();
         }
     }
-
-
-    
 }
