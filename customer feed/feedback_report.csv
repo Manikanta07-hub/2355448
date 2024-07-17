@@ -1,0 +1,10 @@
+feedback_id,customer_id,feedback_date,feedback_text,rating
+2,1,2024-07-15,very good,5
+3,1,2024-07-15,very good,5
+4,1,2024-07-15,very good,3
+6,1,2024-07-15,good,3
+9,11,2024-07-15,good,3
+10,1,2024-07-16,good,4
+11,1,2024-07-16,good,4
+12,1,2024-07-16,good,4
+13,1,2024-07-16,good,4
