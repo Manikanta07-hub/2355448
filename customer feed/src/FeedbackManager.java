@@ -15,12 +15,24 @@ public class FeedbackManager {
             scanner.nextLine(); // consume newline
 
             String sql = "INSERT INTO Feedback (customer_id, feedback_date, feedback_text, rating) VALUES (?, NOW(), ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, customerId);
                 stmt.setString(2, feedbackText);
                 stmt.setInt(3, rating);
-                stmt.executeUpdate();
-                System.out.println("Feedback submitted successfully.");
+                int affectedRows = stmt.executeUpdate();
+
+                if (affectedRows > 0) {
+                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            int feedbackId = generatedKeys.getInt(1);
+                            System.out.println("Feedback submitted successfully with ID: " + feedbackId);
+                        } else {
+                            System.out.println("Feedback submission failed, no ID obtained.");
+                        }
+                    }
+                } else {
+                    System.out.println("Feedback submission failed.");
+                }
             } catch (SQLIntegrityConstraintViolationException e) {
                 System.out.println("Error: Customer ID does not exist.");
             } catch (SQLException e) {
